@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import Group
+from django.utils.timezone import now
+
+
 
 class User(AbstractUser):
     email = models.EmailField(unique=True)
@@ -18,7 +21,7 @@ class Patient(models.Model):
     address = models.CharField(max_length=300)
     phone = models.CharField(max_length=300)
     medical_history = models.TextField(blank=True)
-    schedule = models.DateField()
+    schedule = models.DateField(default=now)
 
     
 class Doctor_Speciality(models.Model):
@@ -51,6 +54,8 @@ class Appointment(models.Model):
     appointment_date = models.DateTimeField()
     status = models.CharField(max_length=100, choices=[('scheduled', 'Scheduled'), ('canceled', 'Canceled'), ('completed', 'Completed')])
 
+def nepal_time_default():
+    return now()
 
 class MedicalRecord(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
@@ -63,8 +68,9 @@ class MedicalRecord(models.Model):
     
 class Emergency(models.Model):
     title = models.CharField(max_length=300)
-    description = models.TimeField()
+    description = models.TextField()
     contact_number = models.CharField(max_length=300)
+    date = models.DateTimeField(default=nepal_time_default)
     
     
 

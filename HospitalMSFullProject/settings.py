@@ -137,3 +137,13 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend','rest_framework.filters.SearchFilter']
 }
+
+TIME_ZONE = 'Asia/Kathmandu'
+
+# Ensure USE_TZ is set to True to enable timezone support
+USE_TZ = True
+
+from django.utils.timezone import now
+
+def nepal_time_default():
+    return now()

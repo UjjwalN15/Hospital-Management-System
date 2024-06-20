@@ -20,7 +20,7 @@ class Product(models.Model):
     description = models.TextField()
     stock = models.IntegerField()
     category = models.ForeignKey(ProductCategory,on_delete = models.SET_NULL, null = True)
-    price = models.IntegerField()
+    price = models.IntegerField(null=True)
     department = models.ManyToManyField(Department)
     def __str__(self):
         return self.name
@@ -32,9 +32,9 @@ class Supplier(models.Model):
     email = models.EmailField()
     
 class Purchase(models.Model):
-    patient = models.ForeignKey(Patient, related_name='purchase', on_delete=models.CASCADE)
+    patient = models.ForeignKey(Patient, related_name='purchase', on_delete=models.CASCADE, null=True)
     quantity = models.IntegerField()
-    price = models.FloatField()
+    price = models.FloatField(null=True)
     # product = models.ForeignKey(Product, on_delete = models.CASCADE, null = True)  CASCADE removes all the data when the Department is deleted
     product = models.ForeignKey(Product,on_delete = models.CASCADE) #models.SET_NULL replaces the NUll value if Product is deleted
     supplier = models.ForeignKey(Supplier,on_delete = models.SET_NULL, null = True) 
