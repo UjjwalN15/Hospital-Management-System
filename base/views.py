@@ -40,11 +40,10 @@ class MedicalRecordApiView(ModelViewSet):
     serializer_class = MedicalRecordSerializer
     
     
-@api_view(['POST'])
-@permission_classes([AllowAny,])
 class EmergencyApiView(ModelViewSet):
     queryset = Emergency.objects.all()
     serializer_class = EmergencySerializer
+    permission_classes = [AllowAny]
     
 @permission_classes([AllowAny,])
 class LogoutView(APIView):

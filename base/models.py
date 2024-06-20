@@ -19,7 +19,7 @@ class Patient(models.Model):
     phone = models.CharField(max_length=300)
     medical_history = models.TextField(blank=True)
     schedule = models.DateField()
-    appointment = models.DateField()
+
     
 class Doctor_Speciality(models.Model):
     name = models.CharField(max_length=255)
@@ -50,6 +50,7 @@ class Appointment(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     appointment_date = models.DateTimeField()
     status = models.CharField(max_length=100, choices=[('scheduled', 'Scheduled'), ('canceled', 'Canceled'), ('completed', 'Completed')])
+
 
 class MedicalRecord(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
