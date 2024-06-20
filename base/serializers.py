@@ -1,5 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 from .models import *
+from django.contrib.auth.models import Group
 
 
 class PatientSerializer(ModelSerializer):
@@ -37,12 +38,19 @@ class MedicalRecordSerializer(ModelSerializer):
         model = MedicalRecord
         fields = '__all__'
         
-class ItemsSerializer(ModelSerializer):
+class EmergencySerializer(ModelSerializer):
     class Meta:
-        model = Items
+        model = Emergency
         fields = '__all__'
         
-class BillingSerializer(ModelSerializer):
+
+        
+class UserSerializer(ModelSerializer):
     class Meta:
-        model = Billing
-        fields = '__all__'
+        model = User
+        fields = ['email','password','groups']
+        
+class GroupSerializer(ModelSerializer):
+    class Meta:
+        model = Group
+        fields = ['id','name']

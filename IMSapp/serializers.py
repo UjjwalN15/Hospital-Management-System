@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import *
-from django.contrib.auth.models import Group
+from base.serializers import PatientSerializer
 
 class DepartmentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,7 +19,13 @@ class SupplierSerializer(serializers.ModelSerializer):
         model = Supplier
         fields = '__all__'
 class PurchaseSerializer(serializers.ModelSerializer):
+    patient = PatientSerializer
     class Meta:
         model = Purchase
+        fields = '__all__'
+        
+class BillingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Billing
         fields = '__all__'
         

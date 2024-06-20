@@ -4,6 +4,7 @@ from .views import *
 urlpatterns = [
     path('department/', DepartmentApiView.as_view({'get': 'list','post':'create'}),name='department'),
     path('department/<int:pk>/', DepartmentApiView.as_view({'get': 'retrieve', 'put':'update','patch': 'partial_update', 'delete':'destroy'}),name='department'),
+    path('billing/<int:pk>/', BillingApiView.as_view({'get': 'retrieve', 'put':'update','patch': 'partial_update', 'delete':'destroy'}),name='department'),
     path('product/', ProductApiView.as_view({'get': 'list','post':'create'}),name='product'),
     path('product/<int:pk>/', ProductApiView.as_view({'get': 'retrieve', 'put':'update','patch': 'partial_update', 'delete':'destroy'}),name='product'),
     path('product_category/', ProductCategoryApiView.as_view({'get': 'list','post':'create'}),name='product_category'),

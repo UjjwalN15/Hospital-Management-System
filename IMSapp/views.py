@@ -2,15 +2,10 @@ from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
-from django.contrib.auth import authenticate
-from rest_framework.authtoken.models import Token
-from django.contrib.auth.hashers import make_password
 from .models import *
 from .serializers import *
-from django.contrib.auth.models import Group
+
 # from django.db.models import Q  => Need for OR clause
 # Create your views here.
 
@@ -54,6 +49,11 @@ class SupplierApiView(ModelViewSet):
     queryset = Supplier.objects.all()
     serializer_class = SupplierSerializer
     search_fields = ['name']
+    
+class BillingApiView(ModelViewSet):
+    queryset = Billing.objects.all()
+    serializer_class = BillingSerializer
+    search_fields = ['patient.name']
 class PurchaseApiView(GenericAPIView):
     queryset = Purchase.objects.all()
     serializer_class = PurchaseSerializer
@@ -113,5 +113,3 @@ class PurchaseDetailApiView(GenericAPIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-    

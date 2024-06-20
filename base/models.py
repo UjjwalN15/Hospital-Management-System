@@ -1,10 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import Group
 
 class User(AbstractUser):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=300)
     password = models.CharField(max_length=300)
+    groups = models.ManyToManyField(Group)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
@@ -16,7 +18,9 @@ class Patient(models.Model):
     address = models.CharField(max_length=300)
     phone = models.CharField(max_length=300)
     medical_history = models.TextField(blank=True)
-
+    schedule = models.DateField()
+    appointment = models.DateField()
+    
 class Doctor_Speciality(models.Model):
     name = models.CharField(max_length=255)
 
@@ -55,12 +59,11 @@ class MedicalRecord(models.Model):
     treatments = models.TextField()
     prescriptions = models.TextField(blank=True)
     
-class Items(models.Model):
-    name = models.CharField(max_length=300)
-    price = models.PositiveIntegerField()
+    
+class Emergency(models.Model):
+    title = models.CharField(max_length=300)
+    description = models.TimeField()
+    contact_number = models.CharField(max_length=300)
+    
+    
 
-class Billing(models.Model):
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    items = models.ForeignKey(Items,on_delete=models.CASCADE)
-    total = models.DecimalField(max_digits=10, decimal_places=2)
-    status = models.CharField(max_length=100, choices=[('paid', 'Paid'), ('unpaid', 'Unpaid')])
