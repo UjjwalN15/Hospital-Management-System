@@ -147,3 +147,7 @@ from django.utils.timezone import now
 
 def nepal_time_default():
     return now()
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

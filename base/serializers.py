@@ -1,4 +1,5 @@
 from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 from .models import *
 from django.contrib.auth.models import Group
 
@@ -34,6 +35,7 @@ class AppointmentSerializer(ModelSerializer):
         fields = '__all__'
         
 class MedicalRecordSerializer(ModelSerializer):
+    pdf_file = serializers.FileField(required=False, allow_null=True)
     class Meta:
         model = MedicalRecord
         fields = '__all__'

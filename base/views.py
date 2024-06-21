@@ -9,11 +9,13 @@ from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.hashers import make_password
 from rest_framework.views import APIView
+from rest_framework.parsers import MultiPartParser, FormParser
 # Create your views here.
 
 class PatientApiView(ModelViewSet):
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
+    search_fields = ['name']
 
 class Doctor_SpecialityApiView(ModelViewSet):
     queryset = Doctor_Speciality.objects.all()
@@ -38,6 +40,7 @@ class AppointmentApiView(ModelViewSet):
 class MedicalRecordApiView(ModelViewSet):
     queryset = MedicalRecord.objects.all()
     serializer_class = MedicalRecordSerializer
+    parser_classes = (MultiPartParser, FormParser)
     
     
 class EmergencyApiView(ModelViewSet):

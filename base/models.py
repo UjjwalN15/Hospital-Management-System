@@ -14,21 +14,20 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['username']
 
 class Patient(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=300)
     age = models.PositiveIntegerField()
     gender = models.CharField(max_length=100,choices=[('male','Male'),('female','Female'),('others','Others')])
     address = models.CharField(max_length=300)
     phone = models.CharField(max_length=300)
     medical_history = models.TextField(blank=True)
-    schedule = models.DateField(default=now)
+    schedule = models.DateTimeField(default=now)
 
     
 class Doctor_Speciality(models.Model):
     name = models.CharField(max_length=255)
 
 class Doctor(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    groups = models.OneToOneField(Group, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=300)
     age = models.PositiveIntegerField()
     gender = models.CharField(max_length=100,choices=[('male','Male'),('female','Female'),('others','Others')])
@@ -64,6 +63,7 @@ class MedicalRecord(models.Model):
     diagnosis = models.TextField()
     treatments = models.TextField()
     prescriptions = models.TextField(blank=True)
+    pdf_file = models.FileField(upload_to='medical_record/pdf/', null=True, blank=True)
     
     
 class Emergency(models.Model):
